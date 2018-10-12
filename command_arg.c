@@ -18,8 +18,8 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 	for(i = 1; i < argc; i++)
 		if(! strcmp(STR_ARG_DATE_1, argv[i]) || ! strcmp(STR_ARG_DATE_2, argv[i])) {
 			i++;
-			/*[4] Mediante la func. date2ymd se carga la fecha en la estructura.*/
-			if(date_2_ymd(argv[i], &(*meta_time).tm_year, &(*meta_time).tm_mon, &(*meta_time).tm_mday) != ST_OK)
+			/*[4] Mediante la func. date2ymd se carga la fecha en la estructura (ver 7).*/
+			if(date_2_ymd(argv[i], &(meta_time -> tm_year), &(meta_time -> tm_mon), &(meta_time -> tm_mday)) != ST_OK)
 				return ST_DATA_ERR;
 			/*[5] Se realizan correcciones del año y mes por el formato que usa struct tm.*/
 			(*meta_time).tm_year -= MIN_YEAR_STRUCT_TM;
@@ -34,7 +34,7 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 				return ST_DATA_ERR;
 			if(year < MIN_YEAR || year > MAX_YEAR)
 				return ST_DATA_ERR;
-			(*meta_time).tm_year = year - MIN_YEAR_STRUCT_TM;
+			meta_time -> tm_year = year - MIN_YEAR_STRUCT_TM;
 			break;
 		}
 
@@ -45,7 +45,7 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 				return ST_DATA_ERR;
 			if(! month || month > MAX_MONTH)
 				return ST_DATA_ERR;
-			(*meta_time).tm_mon = --month;
+			meta_time -> tm_mon = --month;
 			break;
 		}
 
@@ -56,7 +56,7 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 				return ST_DATA_ERR;
 			if(! day || day > MAX_DAY)
 				return ST_DATA_ERR;
-			(*meta_time).tm_mday = day;
+			meta_time -> tm_mday = day;
 			break;
 		}
 
@@ -123,13 +123,16 @@ status_t validate_argv(int argc, const char *argv[]) {
 	for(i = 1; i < argc; i++) {
 		for(j = 0; j < ARGV_DICCTIONARY_SIZE; j++) {
 			if(! strcmp(argv[i], argv_dicctionary[j])) {
+				/*[15] Los argumentos del tipo -h y --help no requieren validación.*/
 				if(j == ARG_HELP_1_POS || j == ARG_HELP_2_POS) {
 					help_flag = 1;
+				/*[16] Los argumentos del tipo -n y --name requieren una cadena alfanumérica en el siguiente argumento.*/
 				} else if(j == ARG_NAME_1_POS || j == ARG_NAME_2_POS){
 					if(++i == argc)
 						return ST_DATA_ERR;
-					if(! isalpha(*argv[i]))
+					if(! isalnum(*argv[i]))
 						return ST_DATA_ERR;
+				/*[17] Los argumentos restantes requieren una cadena de numeros en el siguiente argumento.*/
 				} else {
 					if(++i == argc)
 						return ST_DATA_ERR;
@@ -141,14 +144,14 @@ status_t validate_argv(int argc, const char *argv[]) {
 				break;
 			}
 		}
-		/*[15] Si el argumento no es compatible con ningun tipo en el diccionario devuelve error.*/
+		/*[18] Si el argumento no es compatible con ningun tipo en el diccionario devuelve error.*/
 		if(j == ARGV_DICCTIONARY_SIZE)
 			return ST_DATA_ERR;
 	}
-	/*[16] Si alguno de los argumentos (o tipo de argumentos) se repite, devuelve error.*/
+	/*[19] Si alguno de los argumentos (o tipo de argumentos) se repite, devuelve error.*/
 	if(max_arr(arg_call, ARGV_DICCTIONARY_SIZE) > 1 || max_arr(arg_call_type, ARG_TYPE) > 1)
 		return ST_DATA_ERR;
-	/*[17] Si los argumentos son válidos y uno de ellos es del tipo 'ayuda', devuelve ayuda*/
+	/*[20] Si los argumentos son válidos y uno de ellos es del tipo 'ayuda', devuelve ayuda*/
 	if(help_flag)
 		return ST_HELP;
 	return ST_OK;
