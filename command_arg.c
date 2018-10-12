@@ -163,10 +163,10 @@ status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 		if(! strcmp(STR_ARG_NAME_1, argv[i]) || ! strcmp(STR_ARG_NAME_2, argv[i])) {
 			i++;
 			strcpy(chosen_name -> name, argv[i]);
-			break;
+			return ST_OK;
 	}
 
-	return ST_OK;
+	return ST_DATA_ERR;
 }
 
 /* TO DO:
