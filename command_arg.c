@@ -169,7 +169,8 @@ status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 			return ST_OK;
 	}
 
-	return ST_DATA_ERR;
+	strcpy(chosen_name -> name, DEFAULT_NAME);
+	return ST_OK;
 }
 
 /* TO DO:
