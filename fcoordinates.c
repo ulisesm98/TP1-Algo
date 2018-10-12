@@ -6,7 +6,7 @@
 #define NMEA_LONGITUDE_MINUTES 5
 #define CONVERSION_FACTOR_MINUTES 60
 
-status_t latitude(const char *statement, char **pos_ptr, stantement_t *lat) {
+status_t latitude(const char *statement, char **pos_ptr, statement_t *lat) {
 	
 	size_t degrees;
 	float minutes;
