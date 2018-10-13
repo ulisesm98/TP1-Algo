@@ -40,10 +40,10 @@
 
 typedef enum {ST_DATA_ERR, ST_OK, ST_HELP} status_t;
 
-struct metadata_t {
+typedef struct metadata {
 	char name[MAX_STR];
 	struct tm meta_time;
-} metadata;
+} metadata_t;
 
 const char argv_dicctionary[][MAX_ARGV] = {STR_ARG_HELP_1, STR_ARG_HELP_2, STR_ARG_NAME_1, STR_ARG_NAME_2, STR_ARG_DATE_1, STR_ARG_DATE_2, STR_ARG_YEAR_1, STR_ARG_YEAR_2, STR_ARG_MONTH_1, STR_ARG_MONTH_2, STR_ARG_DAY_1, STR_ARG_DAY_2};
 
