@@ -1,3 +1,13 @@
+/*
+ejecutar junto a archivo ejemplo.nmea
+
+$ cat ejemplo.nmea | ./testreadnmea
+
+tambien crear un ejemplo.nmea con sentencias erroneas en varios sentidos
+para poner a prueba las funciones
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +27,7 @@ int hexstring_2_integer(int d1, int d2);
 
 
 //##################        MAIN         ####################
+
 int main(void) {
 
 	int checksum;
@@ -38,6 +49,8 @@ int main(void) {
 
 //#################       FUNCIONES      ####################
 
+
+//falta validar que lea solo del tipo GGA
 status_t read_nmea(char (*statement)[],int *checksum) { // statement es un puntero a un string
 
 	int c, i, cksm1, cksm2;
