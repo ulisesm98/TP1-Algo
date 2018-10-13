@@ -37,6 +37,7 @@
 #define ARG_TYPE 6
 
 #define DEFAULT_NAME "Default"
+#define CHAR_NAME_SPACE '_'
 
 typedef enum {ST_DATA_ERR, ST_OK, ST_HELP} status_t;
 

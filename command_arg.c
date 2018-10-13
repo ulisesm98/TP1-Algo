@@ -160,27 +160,18 @@ status_t validate_argv(int argc, const char *argv[]) {
 
 status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 	
-	int i;
+	int i, j;
 
 	for(i = 1; i < argc; i++) {
 		if(! strcmp(STR_ARG_NAME_1, argv[i]) || ! strcmp(STR_ARG_NAME_2, argv[i])) {
 			i++;
+			for(j = 0; j < strlen(argv[i]); j++)
+				if(! isalnum(*(argv[i] + j)) && *(argv[i] + j) != CHAR_NAME_SPACE)
+					return ST_DATA_ERR;
 			strcpy(chosen_name -> name, argv[i]);
 			return ST_OK;
+		}
 	}
-
 	strcpy(chosen_name -> name, DEFAULT_NAME);
 	return ST_OK;
 }
-
-/* TO DO:
-
-			- funcion print_help( ... )
-
-			- correr el programa (test2.c (¿test2? necesito git))
-			  para ver si hay errores en las funciones ya implementadas.
-			
-			- se valido arc?
-
-			φα.
-*/
