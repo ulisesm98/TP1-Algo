@@ -116,6 +116,7 @@ int max_arr(int v[], int n) {
 
 /*[12] Valida los argumentos en linea de comando.*/
 status_t validate_argv(int argc, const char *argv[]) {
+	
 	size_t i, j;
 	/*[13] Utiliza dos arreglos para contar las veces que aparecen los argumentos.*/
 	int arg_call[ARGV_DICCTIONARY_SIZE] = {0}, arg_call_type[ARG_TYPE] = {0}, help_flag = 0;
@@ -152,7 +153,7 @@ status_t validate_argv(int argc, const char *argv[]) {
 	/*[19] Si alguno de los argumentos (o tipo de argumentos) se repite, devuelve error.*/
 	if(max_arr(arg_call, ARGV_DICCTIONARY_SIZE) > 1 || max_arr(arg_call_type, ARG_TYPE) > 1)
 		return ST_DATA_ERR;
-	/*[20] Si los argumentos son válidos y uno de ellos es del tipo 'ayuda', devuelve ayuda*/
+	/*[20] Si los argumentos son válidos y uno de ellos es del tipo 'ayuda', devuelve ayuda.*/
 	if(help_flag)
 		return ST_HELP;
 	return ST_OK;
@@ -166,6 +167,7 @@ status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 	for(i = 1; i < argc; i++) {
 		if(! strcmp(STR_ARG_NAME_1, argv[i]) || ! strcmp(STR_ARG_NAME_2, argv[i])) {
 			i++;
+			/*[21] Verifica que solo son caracteres alfanumericos o '_' para espacios.*/
 			for(j = 0; j < strlen(argv[i]); j++)
 				if(! isalnum(*(argv[i] + j)) && *(argv[i] + j) != CHAR_NAME_SPACE)
 					return ST_DATA_ERR;
@@ -173,6 +175,7 @@ status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 			return ST_OK;
 		}
 	}
+	/*[22] Si no se define el nombre a traves de la linea de commando, se asigna el default.*/
 	strcpy(chosen_name -> name, DEFAULT_NAME);
 	return ST_OK;
 }
