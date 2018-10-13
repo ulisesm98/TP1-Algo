@@ -1,0 +1,52 @@
+---------------------------------------------------------
+						HELP    						 
+---------------------------------------------------------
+
+COMMAND LINE VALID ARGUMENTS
+	-h      -n      -f 	      -Y      -m        -d
+	--help 	--name  --format  --year  --month   --day
+
+DESCRIPTION OF ARGUMENTS
+	[-h, --h]
+	 Show help.
+
+	[-n, --name]
+	 Indicates metadata name. /*caracteres alfanumericos*/
+
+	[-f, --format]
+	 Indicates the date. It must be a sequence of 8 digits
+	 which indicate year, month, and day (YYYYMMDD).
+
+	[-y, --year]
+	 Indicates the year. It must be a sequence of 4 digits
+	 (YYYY)
+
+	[-m, --month]
+	 Indicates the month. It must be a sequence of 1 or 2 
+	 digits (MM). /*rango valido*/
+
+	[-d, --day]
+	 Indicates the day. It must be a sequence of 1 or 2 di-
+	 gits (DD). /*rango valido*/
+
+
+DEFAULT
+	
+	/*default para todos los argumentos*/
+	/*que pasa si usa -f 20180512 y luego -Y 2014*/
+	/*que pasa si ingresa una fecha invalida pero dentro 
+	  del rango. ej 20140231 (31 de marzo)*/
+
+INVALID INPUTS
+
+	/*se colocan dos argumentos del mismo tipo*/
+	/*se coloca algun argumento no listado*/
+	/*para los argumentos -f, -Y- -m, etc, no se coloca la
+	  secuencia correspondiente (YYYYMMDD, YYYY, etc)*/
+	/*Nombre solo alfanum, los espacios se reemplazan con
+	  '_' ej default_name*/
+
+IMPLEMENTATION
+	
+	/*ejemplos para todos los argumentos*/
+	/*ejemplos validos e invalidos*/ 
