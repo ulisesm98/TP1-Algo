@@ -36,6 +36,7 @@
 #define STR_ARG_DAY_2 "--day"
 #define ARGV_DICCTIONARY_SIZE 12
 #define ARG_TYPE 6
+#define ARG_STR_PER_TYPE 2
 
 #define DEFAULT_NAME "Default"
 #define CHAR_NAME_SPACE '_'
@@ -116,7 +117,7 @@ status_t validate_argv(int argc, const char *argv[]) {
 						return ST_DATA_ERR;
 				}
 				arg_call[j]++;
-				arg_call_type[j / 2]++;
+				arg_call_type[j / ARG_STR_PER_TYPE]++;
 				break;
 			}
 		}

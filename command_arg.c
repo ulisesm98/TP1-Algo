@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+#include "command_arg.h"
 
 status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 
@@ -140,7 +141,7 @@ status_t validate_argv(int argc, const char *argv[]) {
 						return ST_DATA_ERR;
 				}
 				arg_call[j]++;
-				arg_call_type[j / 2]++;
+				arg_call_type[j / ARG_STR_PER_TYPE]++;
 				break;
 			}
 		}

@@ -35,6 +35,7 @@
 #define STR_ARG_DAY_2 "--day"
 #define ARGV_DICCTIONARY_SIZE 12
 #define ARG_TYPE 6
+#define ARG_STR_PER_TYPE 2
 
 #define DEFAULT_NAME "Default"
 #define CHAR_NAME_SPACE '_'
