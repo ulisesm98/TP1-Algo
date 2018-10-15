@@ -4,8 +4,8 @@
 #include <ctype.h>
 #include <time.h>
 
-#define XML_HEADER "<?xml version="1.0" encoding="UTF-8"?>" // las comillas adentro podrían ser un problema?
-#define GPX_VERSION "<gpx version="1.1" creator="95.11 TP1 - Tracker" xmlns="http://www.topografix.com/GPX/1/1">"
+#define XML_HEADER "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" // las comillas adentro podrían ser un problema?     // para imprimir comillas se pone \"   
+#define GPX_VERSION "<gpx version=\"1.1\" creator=\"95.11 TP1 - Tracker\" xmlns=\"http://www.topografix.com/GPX/1/1\">"
 #define OPEN_METADATA "<metadata>"
 #define CLOSE_METADATA "</metadata>"
 #define OPEN_NAME "<name>"
