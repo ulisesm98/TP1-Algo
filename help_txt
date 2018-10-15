@@ -1,8 +1,8 @@
 ---------------------------------------------------------
-						HELP    						 
+			HELP    						 
 ---------------------------------------------------------
 
-COMMAND LINE VALID ARGUMENTS
+LIST OF COMMAND-LINE VALID COMMANDS 
 	-h      -n      -f 	      -Y      -m        -d
 	--help 	--name  --format  --year  --month   --day
 
@@ -11,22 +11,22 @@ DESCRIPTION OF ARGUMENTS
 	 Show help.
 
 	[-n, --name]
-	 Indicates metadata name. /*caracteres alfanumericos*/
+	 Insert a name. /*caracteres alfanumericos*/
 
 	[-f, --format]
-	 Indicates the date. It must be a sequence of 8 digits
-	 which indicate year, month, and day (YYYYMMDD).
+	 Submit the date. It must be a sequence of 8 digits
+	 corresponding to year, month, and day (YYYYMMDD).
 
 	[-y, --year]
-	 Indicates the year. It must be a sequence of 4 digits
+	 Insert a year. It must be a sequence of 4 digits
 	 (YYYY)
 
 	[-m, --month]
-	 Indicates the month. It must be a sequence of 1 or 2 
+	 Insert a month. It must be a sequence of 1 or 2 
 	 digits (MM). /*rango valido*/
 
 	[-d, --day]
-	 Indicates the day. It must be a sequence of 1 or 2 di-
+	 Insert a day. It must be a sequence of 1 or 2 di-
 	 gits (DD). /*rango valido*/
 
 
