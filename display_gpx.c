@@ -34,7 +34,6 @@ void print_opening_tags(void) {
 
 	printf("\t%s\n", OPEN_TRK);	
 	printf("\t\t%s\n", OPEN_TRKSEG);
-
 }
 
 void display_track_point(void) {
