@@ -43,41 +43,41 @@ int hexstring_2_integer(int d1, int d2) {
 
 	//busca el primer caracter en el dicc, si no lo encuentra --> error
 	if((ptr = strrchr(hexa_dic, d1)) == NULL)
-		return 2;//HEXSTRING_NULL_FIND_INT;
+		return HEXSTRING_NULL_FIND_INT;
 	//calcula la posicion del caracter respecto al comienzo de la cadena
 	hex1 = (size_t)ptr - (size_t)hexa_dic; //consultar
 	
 	if((ptr = strrchr(hexa_dic, d2)) == NULL)
-		return 3;//HEXSTRING_NULL_FIND_INT;
+		return HEXSTRING_NULL_FIND_INT;
 	hex2 = (size_t)ptr - (size_t)hexa_dic; //consultar
 	
-	if(hex1 >= 16 || hex2 >= 16) // HC?? PARA MI SI, CAMBIAR (Kevin)
-		return 4;//HEXSTRING_NULL_FIND_INT;
-	return (int)hex1 * 16 + hex2; // HC ?? PARA MI SI, CAMBIAR (Kevin)
+	if(hex1 >= HEX_DIGITS || hex2 >= HEX_DIGITS) // HC?? PARA MI SI, CAMBIAR (Kevin) // Asi esta bien? E.
+		return HEXSTRING_NULL_FIND_INT;
+	return (int)hex1 * HEX_DIGITS + hex2; // HC ?? PARA MI SI, CAMBIAR (Kevin) // Asi esta bien? E.
 
 } // si está mal devuelve -1
 
-status_t time_of_fix(const char *statement, char **pos_ptr, struct tm *trackpt_time) {
+status_t time_of_fix(const char *statement, char **pos_ptr, struct tm *trackpt_time) { // pos_ptr ya viene apuntado a *statement? para que usa *statement la func?
 	
-	char aux[MAX_STR];
+	char aux[MAX_STR]; // con 4 digitos alcanza E.
 	char *aux_ptr;
 	size_t hours, minutes, i;
 	float seconds;
 
 
-	for(i = 0; i < HOURS_DIGITS; i++, *pos_ptr++)
-		aux[i] = **pos_ptr;
+	for(i = 0; i < HOURS_DIGITS; i++, *pos_ptr++) //se podria poner el incremento del puntero en la sig. declaración aux[i] = *((*pos_ptr)++) E.
+		aux[i] = **pos_ptr; // al final del ciclo cargar un '\0' en aux[i], de este modo cortas la cadena donde no hay mas info util. E.
 	hours = strtoul(aux, &aux_ptr, 10);
-	if(*aux_ptr != '\0' && *aux_ptr != '\n')
+	if(*aux_ptr != '\0' && *aux_ptr != '\n') // solo hace falta validar el '\0' (creo) en el caso que haya cargado el '\0' en la linea anterior E.
 		return ST_NUMERICAL_ERROR;	
 
-	for(i = 0; i < MINUTES_DIGITS; i++, *pos_ptr++)
+	for(i = 0; i < MINUTES_DIGITS; i++, *pos_ptr++) // IDEM HOURS
 		aux[i] = **pos_ptr;
 	minutes = strtoul(aux, &aux_ptr, 10);
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;	
 
-	for(i = 0; i < SECONDS_DIGITS + 1; i++, *pos_ptr++) //agrego un dígito por el punto
+	for(i = 0; i < SECONDS_DIGITS + 1; i++, *pos_ptr++) //agrego un dígito por el punto // Esta funcion hay que separarla en dos: segundos y milisegundos. tm_sec es (int). Creo un nuevo campo en trkpt_t. E.
 		aux[i] = **pos_ptr;
 	seconds = strtof(aux, &aux_ptr);
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
@@ -85,30 +85,30 @@ status_t time_of_fix(const char *statement, char **pos_ptr, struct tm *trackpt_t
 	
 	trackpt_time -> tm_hour = hours;
 	trackpt_time -> tm_min = minutes;
-	trackpt_time -> tm_sec = seconds; //Algun problema con que tm_sec vaya de 0 a 59?
+	trackpt_time -> tm_sec = seconds; //Algun problema con que tm_sec vaya de 0 a 59? // imagino que el tracker tira segundos en ese rango. E.
 
 	/* Importante: falta meter en la estructura dia, mes y año */
 	
 	
 }
 
-status_t latitude(const char *statement, char **pos_ptr, trackpt_t *lat) {
-	
+status_t latitude(const char *statement, char **pos_ptr, trackpt_t *lat) { // pos_ptr quedo en una coma creo, en la func anterior habria que aumentarlo, o aca. No entiendo para que usa *statement E.
+															// 	     ↑   *lat es la estructura? Creo que esta bien (seguro lo esta), pero el nombre es confuso. desde lat podes acceder a todo..time, long, nsat, etc. E. 
 	size_t degrees, i;
 	float minutes;
 	char *aux_ptr;
-	char aux[MAX_STR];
+	char aux[MAX_STR]; // con 4 digitos alcanza E.
 
 	// validar punteros si fuera necesario. No lo pongo porque capaz ya está validado en otra parte
 
-	for(i = 0; i < NMEA_LATITUDE_DEGREES; i++, *pos_ptr++) 
+	for(i = 0; i < NMEA_LATITUDE_DEGREES; i++, *pos_ptr++) // al final de estos ciclo recomiendo poner un '\0' E.
 		aux[i] = **pos_ptr;
 
 	degrees = strtoul(aux, &aux_ptr, 10);
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;
 
-	for(i = 0; i < NMEA_LATITUDE_MINUTES + 1; i++, *pos_ptr++) // sumo uno por el punto
+	for(i = 0; i < NMEA_LATITUDE_MINUTES + 1; i++, *pos_ptr++) // sumo uno por el punto 
 		aux[i] = **pos_ptr;
 
 	/* Reutilizo cadena porque considero que la sentencia viene según indica el código NMEA. Sino tendría que considerar el caso en el que 
@@ -119,7 +119,7 @@ status_t latitude(const char *statement, char **pos_ptr, trackpt_t *lat) {
 		return ST_NUMERICAL_ERROR;
 
 	*pos_ptr++;
-	*pos_ptr++;
+	*pos_ptr++; // creo que deberia avanzar 1 solo, termino en la coma. se puede inicializar una variable signo = 1, if(South){signo = -1}, y asignas una sola vez multiplicando por signo E.
 
 	if(**pos_ptr == SOUTH_CHAR)
 		lat -> latitude = (-1)*(degrees + minutes/CONVERSION_FACTOR_MINUTES); //TODO esto hay que ponerlo más lindo
@@ -132,7 +132,7 @@ status_t latitude(const char *statement, char **pos_ptr, trackpt_t *lat) {
 }
 
 
-status_t longitude(const char *statement, char **pos_ptr, trackpt_t *lon) {
+status_t longitude(const char *statement, char **pos_ptr, trackpt_t *lon) { 
 	
 	size_t degrees, i;
 	float minutes;
@@ -170,11 +170,11 @@ status_t longitude(const char *statement, char **pos_ptr, trackpt_t *lon) {
 
 }
 
-status_t quality_of_fix(const char *statement, char **pos_ptr, trackpt_t *qual) {
+status_t quality_of_fix(const char *statement, char **pos_ptr, trackpt_t *qual) { // creo que el puntero termino en una coma E.
+																		//  ↑  como antes, me parece raro quality como trackpt_t E.
+	fix_quality_t option; // hay una mejor manera?	// No se como lo quiere pato...el switch es horrible pero me parece que quiere esto. E.
 
-	fix_quality_t option; // hay una mejor manera?
-
-	switch(**pos_ptr) {
+	switch(**pos_ptr) { // cargar el dato de pos_ptr en una variable y avanzar pos_ptr para la prox func. E.
 		
 		case INVALID_FIX_CHAR:
 			option = INVALID_FIX;
@@ -216,7 +216,7 @@ status_t quality_of_fix(const char *statement, char **pos_ptr, trackpt_t *qual) 
 
 status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *satellites) {
 
-	if(**pos_ptr < MIN_SAT || **pos_ptr > MAX_SAT)
+	if(**pos_ptr < MIN_SAT || **pos_ptr > MAX_SAT) // ojo que el numero de satelites puede ser 12, es decir dos chars..hay que leer ambas y hacer strto- E.
 		return ST_INVALID_NUMBER_ERROR;
 
 	satellites -> n_sat = **pos_ptr;
@@ -225,7 +225,7 @@ status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *sat
 		
 }
 
-status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *satellites) {
+status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *satellites) { // Esta dos veces ?
 
 	if(**pos_ptr < MIN_SAT || **pos_ptr > MAX_SAT)
 		return ST_INVALID_NUMBER_ERROR;
@@ -241,11 +241,11 @@ status_t hdop(const char *statement, char **pos_ptr, trackpt_t *hd) {
 	size_t i;
 	float hdop;
 	char *aux_ptr;
-	char aux[MAX_STR];
+	char aux[MAX_STR]; // es muy grande esto.
 
 	// validar punteros si fuera necesario. No lo pongo porque capaz ya está validado en otra parte
 
-	for(i = 0; i < HDOP_DIGITS + 1; i++, *pos_ptr++) 
+	for(i = 0; i < HDOP_DIGITS + 1; i++, *pos_ptr++) // si despues del ciclo no agrega el '\0' (aux[] fue creado con 600 chars y puede tener basura) no hay chance de que lea bien hasta un '\0' E.
 		aux[i] = **pos_ptr;
 	hdop = strtof(aux, &aux_ptr);
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
@@ -256,7 +256,7 @@ status_t hdop(const char *statement, char **pos_ptr, trackpt_t *hd) {
 
 }
 
-status_t elevation(const char *statement, char **pos_ptr, trackpt_t *elev) {
+status_t elevation(const char *statement, char **pos_ptr, trackpt_t *elev) { // los comentarios se repiten para las funciones que restan E.
 	
 	size_t i;
 	float elevation;

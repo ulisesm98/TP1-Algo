@@ -9,6 +9,7 @@
 #define MAX_STR_NMEA 70
 #define STR_HEX "0123456789ABCDEF"
 #define HEXSTRING_NULL_FIND_INT -1
+#define HEX_DIGITS 16
 
 
 /* macros de tiempo de fix */
@@ -55,6 +56,7 @@ En el segundo caso tiene que ver con que no respeta un rango pedido (ej: numero 
 
 typedef struct trackpt {
 	struct tm trackpt_time;
+	int trackpt_time_milisec; // miliseconds agregados!
 	double latitude;
 	double longitude;
 	fix_quality_t quality;
