@@ -20,11 +20,11 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 		if(! strcmp(STR_ARG_DATE_1, argv[i]) || ! strcmp(STR_ARG_DATE_2, argv[i])) {
 			i++;
 			/*[4] Mediante la func. date2ymd se carga la fecha en la estructura (ver 7).*/
-			if(date_2_ymd(argv[i], &(meta_time -> tm_year), &(meta_time -> tm_mon), &(meta_time -> tm_mday)) != ST_OK)
+			if(date_2_ymd(argv[i], &(meta_time->tm_year), &(meta_time->tm_mon), &(meta_time->tm_mday)) != ST_OK)
 				return ST_DATA_ERR;
 			/*[5] Se realizan correcciones del año y mes por el formato que usa struct tm.*/
-			(*meta_time).tm_year -= MIN_YEAR_STRUCT_TM;
-			(*meta_time).tm_mon --;
+			(*meta_time)->tm_year -= MIN_YEAR_STRUCT_TM;
+			(*meta_time)->tm_mon --;
 			break;
 		}
 
@@ -35,7 +35,7 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 				return ST_DATA_ERR;
 			if(year < MIN_YEAR || year > MAX_YEAR)
 				return ST_DATA_ERR;
-			meta_time -> tm_year = year - MIN_YEAR_STRUCT_TM;
+			meta_time->tm_year = year - MIN_YEAR_STRUCT_TM;
 			break;
 		}
 
@@ -46,7 +46,7 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 				return ST_DATA_ERR;
 			if(! month || month > MAX_MONTH)
 				return ST_DATA_ERR;
-			meta_time -> tm_mon = --month;
+			meta_time->tm_mon = --month;
 			break;
 		}
 
@@ -57,7 +57,7 @@ status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time) {
 				return ST_DATA_ERR;
 			if(! day || day > MAX_DAY)
 				return ST_DATA_ERR;
-			meta_time -> tm_mday = day;
+			meta_time->tm_mday = day;
 			break;
 		}
 
@@ -171,11 +171,11 @@ status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 			for(j = 0; j < strlen(argv[i]); j++)
 				if(! isalnum(*(argv[i] + j)) && *(argv[i] + j) != CHAR_NAME_SPACE)
 					return ST_DATA_ERR;
-			strcpy(chosen_name -> name, argv[i]);
+			strcpy(chosen_name->name, argv[i]);
 			return ST_OK;
 		}
 	}
 	/*[22] Si no se define el nombre a traves de la linea de commando, se asigna el default.*/
-	strcpy(chosen_name -> name, DEFAULT_NAME);
+	strcpy(chosen_name->name, DEFAULT_NAME);
 	return ST_OK;
 }
