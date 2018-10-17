@@ -1,3 +1,6 @@
+#ifndef COMMAND_ARG__H
+#define COMMAND_ARG__H 1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -54,3 +57,5 @@ status_t validate_argv(int argc, const char *argv[]);
 status_t read_time_argv(int argc, const char *argv[], struct tm *meta_time); //funcion que carga la estructura time (utiliza la sig. funcion)
 status_t date_2_ymd(const char *date_str, int *year, int *month, int *day); //funcion que convierte formatos de fecha YYYYMMDD
 status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name);
+
+#endif
