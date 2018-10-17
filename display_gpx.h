@@ -1,3 +1,6 @@
+#ifndef DISPLAY_GPX__H
+#define DISPLAY_GPX__H 1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,3 +37,5 @@ void print_opening_tags(void);
 void print_closing_tags(void);
 void display_metadata(void);
 void display_track_point(void);
+
+#endif
