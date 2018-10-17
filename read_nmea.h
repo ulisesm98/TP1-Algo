@@ -1,3 +1,6 @@
+#ifndef READ_NMEA__H
+#define READ_NMEA__H 1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -77,3 +80,5 @@ status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *sat
 status_t hdop(const char *statement, char **pos_ptr, trackpt_t *hd);
 status_t elevation(const char *statement, char **pos_ptr, trackpt_t *elev);
 status_t undulation_of_geoid(const char *statement, char **pos_ptr, trackpt_t *und_of_geoid);
+
+#endif
