@@ -83,9 +83,9 @@ status_t time_of_fix(const char *statement, char **pos_ptr, struct tm *trackpt_t
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;	
 	
-	trackpt_time -> tm_hour = hours;
-	trackpt_time -> tm_min = minutes;
-	trackpt_time -> tm_sec = seconds; //Algun problema con que tm_sec vaya de 0 a 59? // imagino que el tracker tira segundos en ese rango. E.
+	trackpt_time->tm_hour = hours;
+	trackpt_time->tm_min = minutes;
+	trackpt_time->tm_sec = seconds; //Algun problema con que tm_sec vaya de 0 a 59? // imagino que el tracker tira segundos en ese rango. E.
 
 	/* Importante: falta meter en la estructura dia, mes y año */
 	
@@ -122,9 +122,9 @@ status_t latitude(const char *statement, char **pos_ptr, trackpt_t *lat) { // po
 	*pos_ptr++; // creo que deberia avanzar 1 solo, termino en la coma. se puede inicializar una variable signo = 1, if(South){signo = -1}, y asignas una sola vez multiplicando por signo E.
 
 	if(**pos_ptr == SOUTH_CHAR)
-		lat -> latitude = (-1)*(degrees + minutes/CONVERSION_FACTOR_MINUTES); //TODO esto hay que ponerlo más lindo
+		lat->latitude = (-1)*(degrees + minutes/CONVERSION_FACTOR_MINUTES); //TODO esto hay que ponerlo más lindo
 	else 
-		lat -> latitude = (degrees + minutes/CONVERSION_FACTOR_MINUTES);
+		lat->latitude = (degrees + minutes/CONVERSION_FACTOR_MINUTES);
 		
 
 	return ST_OK;
@@ -162,9 +162,9 @@ status_t longitude(const char *statement, char **pos_ptr, trackpt_t *lon) {
 	*pos_ptr++;
 
 	if(**pos_ptr == WEST_CHAR)
-		lon -> longitude = (-1)*(degrees + minutes/CONVERSION_FACTOR_MINUTES); //TODO esto hay que ponerlo más lindo
+		lon->longitude = (-1)*(degrees + minutes/CONVERSION_FACTOR_MINUTES); //TODO esto hay que ponerlo más lindo
 	else 
-		lon -> longitude = (degrees + minutes/CONVERSION_FACTOR_MINUTES);
+		lon->longitude = (degrees + minutes/CONVERSION_FACTOR_MINUTES);
 
 	return ST_OK;
 
@@ -207,7 +207,7 @@ status_t quality_of_fix(const char *statement, char **pos_ptr, trackpt_t *qual) 
 			return ST_INVALID_NUMBER_ERROR;
 	}
 		
-	qual -> quality = option;
+	qual->quality = option;
 
 	return ST_OK;
 		
@@ -217,24 +217,14 @@ status_t quality_of_fix(const char *statement, char **pos_ptr, trackpt_t *qual) 
 status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *satellites) {
 
 	if(**pos_ptr < MIN_SAT || **pos_ptr > MAX_SAT) // ojo que el numero de satelites puede ser 12, es decir dos chars..hay que leer ambas y hacer strto- E.
-		return ST_INVALID_NUMBER_ERROR;
+		return ST_INVALID_NUMBER_ERROR; //A lo que apunta pos_ptr es un char y MIN_SAT y MAX_SAT son enteros, nose si se pueden comparar. - U.
 
-	satellites -> n_sat = **pos_ptr;
-
-	return ST_OK;
-		
-}
-
-status_t num_of_satellites(const char *statement, char **pos_ptr, trackpt_t *satellites) { // Esta dos veces ?
-
-	if(**pos_ptr < MIN_SAT || **pos_ptr > MAX_SAT)
-		return ST_INVALID_NUMBER_ERROR;
-
-	satellites -> n_sat = **pos_ptr;
+	satellites->n_sat = **pos_ptr;
 
 	return ST_OK;
 		
 }
+
 
 status_t hdop(const char *statement, char **pos_ptr, trackpt_t *hd) {
 	
@@ -251,7 +241,7 @@ status_t hdop(const char *statement, char **pos_ptr, trackpt_t *hd) {
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;	
 
-	hd -> hdop = hdop;
+	hd->hdop = hdop;
 	
 
 }
@@ -271,7 +261,7 @@ status_t elevation(const char *statement, char **pos_ptr, trackpt_t *elev) { // 
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;	
 
-	elev -> elevation = elevation;
+	elev->elevation = elevation;
 	
 
 }
@@ -291,7 +281,7 @@ status_t undulation_of_geoid(const char *statement, char **pos_ptr, trackpt_t *u
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;	
 
-	und_of_geoid -> undulation_of_geoid = undulation;
+	und_of_geoid->undulation_of_geoid = undulation;
 	
 
 }
