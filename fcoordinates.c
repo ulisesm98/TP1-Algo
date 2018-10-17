@@ -33,7 +33,7 @@ status_t latitude(const char *statement, char **pos_ptr, statement_t *lat) {
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;
 
-	lat -> latitude = degrees + minutes/CONVERSION_FACTOR_MINUTES; //falta multiplicar por -1 (o no) según si sea S o N
+	lat->latitude = degrees + minutes/CONVERSION_FACTOR_MINUTES; //falta multiplicar por -1 (o no) según si sea S o N
 
 	return ST_OK;
 
@@ -66,7 +66,7 @@ status_t longitude(const char *statement, char **pos_ptr, stantement_t *lon) {
 	if(*aux_ptr != '\0' && *aux_ptr != '\n')
 		return ST_NUMERICAL_ERROR;
 
-	lon -> longitude = degrees + minutes/CONVERSION_FACTOR_MINUTES; //falta multiplicar por -1 (o no) según si sea S o N
+	lon->longitude = degrees + minutes/CONVERSION_FACTOR_MINUTES; //falta multiplicar por -1 (o no) según si sea S o N
 
 	return ST_OK;
 
