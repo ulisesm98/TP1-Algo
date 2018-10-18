@@ -179,3 +179,57 @@ status_t read_name_argv(int argc, const char *argv[], metadata_t *chosen_name) {
 	strcpy(chosen_name->name, DEFAULT_NAME);
 	return ST_OK;
 }
+
+void print_help(void){
+	printf("\n%s", STR_VALID_COMMANDS);
+	printf("\n%s %s %s %s %s %s", STR_ARG_HELP_1, STR_ARG_NAME_1, STR_ARG_DATE_1, STR_ARG_YEAR_1, STR_ARG_MONTH_1, STR_ARG_DAY_1);
+	printf("\n%s %s %s %s %s %s", STR_ARG_HELP_2, STR_ARG_NAME_2, STR_ARG_DATE_2, STR_ARG_YEAR_2, STR_ARG_MONTH_2, STR_ARG_DAY_2);
+	printf("\n\n%s", STR_DESCRIPTION_ARG);
+	printf("\n[%s, %s]", STR_ARG_HELP_1, STR_ARG_HELP_2);
+	printf("\n%s", TXT_HELP);
+	printf("\n[%s, %s]", STR_ARG_NAME_1, STR_ARG_NAME_2);
+	printf("\n%s", TXT_NAME);
+	printf("\n[%s, %s]", STR_ARG_DATE_1, STR_ARG_DATE_2);
+	printf("\n%s", TXT_DATE);
+	printf("\n[%s, %s]", STR_ARG_YEAR_1, STR_ARG_YEAR_2);
+	printf("\n%s", TXT_YEAR);
+	printf("\n[%s, %s]", STR_ARG_MONTH_1, STR_ARG_MONTH_2);
+	printf("\n%s", TXT_MONTH);
+	printf("\n[%s, %s]", STR_ARG_DAY_1, STR_ARG_DAY_2);
+	printf("\n%s", TXT_DAY);
+	printf("\n\n%s", STR_DEFAULT);
+	printf("\n%s", TXT_DEFAULT_1);
+	printf("\n%s", TXT_DEFAULT_2);
+	printf("\n\n%s", STR_INVALID_INPUTS);
+	printf("\n%s", TXT_INV_INP_1);
+	printf("\n%s", TXT_INV_INP_2);
+	printf("\n%s", TXT_INV_INP_3);
+	printf("\n%s", TXT_INV_INP_4);
+	printf("\n\n%s", STR_IMPLEMENTATION);
+	printf("\n\n%s:", STR_VALID_EX);
+	printf("\n%s", VALID_EX_HELP_1);
+	printf("\n%s", VALID_EX_HELP_2);
+	printf("\n%s", VALID_EX_NAME_1);
+	printf("\n%s", VALID_EX_NAME_2);
+	printf("\n%s", VALID_EX_DATE_1);
+	printf("\n%s", VALID_EX_DATE_2);
+	printf("\n%s", VALID_EX_YEAR_1);
+	printf("\n%s", VALID_EX_YEAR_2);
+	printf("\n%s", VALID_EX_MONTH_1);
+	printf("\n%s", VALID_EX_MONTH_2);
+	printf("\n%s", VALID_EX_DAY_1);
+	printf("\n%s", VALID_EX_DAY_2);
+	printf("\n\n%s:", STR_INVALID_EX);
+	printf("\n%s", INVALID_EX_HELP_1);
+	printf("\n%s", INVALID_EX_HELP_2);
+	printf("\n%s", INVALID_EX_NAME_1);
+	printf("\n%s", INVALID_EX_NAME_2);
+	printf("\n%s", INVALID_EX_DATE_1);
+	printf("\n%s", INVALID_EX_DATE_2);
+	printf("\n%s", INVALID_EX_YEAR_1);
+	printf("\n%s", INVALID_EX_YEAR_2);
+	printf("\n%s", INVALID_EX_MONTH_1);
+	printf("\n%s", INVALID_EX_MONTH_2);
+	printf("\n%s", INVALID_EX_DAY_1);
+	printf("\n%s\n", INVALID_EX_DAY_2);
+}
